@@ -1,0 +1,23 @@
+# Evitar subir node_modules
+node_modules/
+
+# Entorno de producción
+dist/
+build/
+
+# Entornos de desarrollo locales
+.env
+.env.local
+
+# Directorios de caché
+.cache/
+.tmp/
+
+# Archivos de configuración de editores
+.next/
+
+# Dependencias de paquetes lock
+package-lock.json
+
+
+__pycache__/

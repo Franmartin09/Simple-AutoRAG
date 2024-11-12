@@ -1,0 +1,29 @@
+version: '3'
+services:
+
+  api:
+    build:
+      context: ./api
+    container_name: API
+    ports:
+      - "80:80"
+    volumes:
+      - ./api:/app
+    environment:
+      - HOST=0.0.0.0
+      - PORT=80
+    command: fastapi run main.py --port 80
+
+  # nextjs:
+  #   build:
+  #     context: ./front
+  #   container_name: FRONT
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./front:/app
+  #   environment:
+  #     - HOST=0.0.0.0
+  #     - PORT=3000
+  #   command: npm run dev
+
