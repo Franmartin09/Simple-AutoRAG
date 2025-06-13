@@ -21,3 +21,8 @@ package-lock.json
 
 
 __pycache__/
+
+
+/logs
+
+.python-version
