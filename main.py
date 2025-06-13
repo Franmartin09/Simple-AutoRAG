@@ -3,6 +3,7 @@ import logging
 from utils.crawler import get_latest_arxiv_paper
 from utils.model import vector_embedding, get_embedding
 from utils.db import save_data_embedded, retrieve_similar_entries
+from utils.embeding_visualization import plot_embeddings_3d, generate_wordcloud_from_data
 
 
 def setup_logger():
@@ -27,6 +28,8 @@ def main():
 
     data_embedded = vector_embedding(raw_data)
     logger.info("🧠 Embeddings generated for all entries")
+    plot_embeddings_3d(data_embedded, output_path="output/arxiv_embeddings.png")
+    generate_wordcloud_from_data(data_embedded, output_path="output/arxiv_wordcloud.png", field="title")
 
     # Uncomment to save to DB
     # save_data_embedded(data_embedded)
@@ -34,6 +37,8 @@ def main():
 
     user_question = input("💬 Write some idea you're interested in, and I’ll search for the latest papers: ")
     logger.info(f"📝 User input: {user_question}")
+
+    plot_embeddings_3d(data_embedded, output_path="output/embedding_plot.png", user_input=user_question)
 
     # Uncomment when retrieval is ready
     # info_retrieved = retrieve_similar_entries(user_question)
