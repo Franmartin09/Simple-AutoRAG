@@ -107,3 +107,57 @@ def generate_wordcloud_from_data(data: list[dict], output_path="output/wordcloud
     plt.tight_layout()
     plt.savefig(output_path, bbox_inches="tight")
     plt.close()
+
+import numpy as np
+import networkx as nx
+from sklearn.metrics.pairwise import cosine_similarity
+
+def build_similarity_graph(data_embedded: list[dict], threshold_factor: float = 0.5) -> nx.Graph:
+    """
+    Construye un grafo de similitud usando embeddings con un umbral dinámico.
+    - threshold_factor: controla cuán estricto es el umbral (mayor => más conexiones).
+    """
+    embeddings = np.array([entry["embedding"] for entry in data_embedded])
+    titles = [entry["title"] for entry in data_embedded]
+    sim_matrix = cosine_similarity(embeddings)
+
+    # Extrae la parte superior triangular sin la diagonal
+    triu_indices = np.triu_indices_from(sim_matrix, k=1)
+    sim_scores = sim_matrix[triu_indices]
+
+    # Umbral dinámico
+    mean_sim = np.mean(sim_scores)
+    std_sim = np.std(sim_scores)
+    dynamic_threshold = mean_sim + threshold_factor * std_sim
+
+    print(f"[INFO] Umbral dinámico de similitud: {dynamic_threshold:.4f}")
+
+    # Crear el grafo
+    G = nx.Graph()
+
+    # Añadir nodos (títulos como identificadores)
+    for entry in data_embedded:
+        G.add_node(entry["title"], summary=entry["summary"], link=entry["link"])
+
+    # Añadir aristas si la similitud supera el umbral
+    for i in range(len(data_embedded)):
+        for j in range(i + 1, len(data_embedded)):
+            sim = sim_matrix[i, j]
+            if sim >= dynamic_threshold:
+                G.add_edge(titles[i], titles[j], weight=sim)
+
+    return G
+
+
+import matplotlib.pyplot as plt
+
+def visualize_graph(G: nx.Graph):
+    pos = nx.spring_layout(G, seed=42)
+    weights = nx.get_edge_attributes(G, 'weight')
+    
+    plt.figure(figsize=(12, 8))
+    nx.draw(G, pos, with_labels=True, font_size=8, node_size=500, edge_color='gray', alpha=0.6)
+    nx.draw_networkx_edge_labels(G, pos, edge_labels={k: f"{v:.2f}" for k, v in weights.items()}, font_size=7)
+    plt.title("Knowledge-like Similarity Graph")
+    plt.tight_layout()
+    plt.show()

@@ -3,8 +3,7 @@ import logging
 from utils.crawler import get_latest_arxiv_paper
 from utils.model import vector_embedding, get_embedding
 from utils.db import save_data_embedded, retrieve_similar_entries
-from utils.embeding_visualization import plot_embeddings_3d, generate_wordcloud_from_data
-
+from utils.embeding_visualization import plot_embeddings_3d, generate_wordcloud_from_data, build_similarity_graph, visualize_graph
 
 def setup_logger():
     os.makedirs("logs", exist_ok=True)
@@ -30,6 +29,8 @@ def main():
     logger.info("🧠 Embeddings generated for all entries")
     plot_embeddings_3d(data_embedded, output_path="output/arxiv_embeddings.png")
     generate_wordcloud_from_data(data_embedded, output_path="output/arxiv_wordcloud.png", field="title")
+    G = build_similarity_graph(data_embedded, threshold_factor=0.5)
+    visualize_graph(G)
 
     # Uncomment to save to DB
     # save_data_embedded(data_embedded)
