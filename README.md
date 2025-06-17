@@ -1,6 +1,6 @@
-# Simple-AutoRAG
+# AutoRAG
 
-Simple-AutoRAG is a web application designed to facilitate the creation of Retrieve Augmented Generation (RAG) Project Chats by allowing users to upload documents. This powerful tool employs retrieval augmented generation techniques to enable intelligent, context-aware conversations tailored to the uploaded documents within specific projects.
+AutoRAG is a web application designed to facilitate the creation of Retrieve Augmented Generation (RAG) Project Chats by allowing users to upload documents. This powerful tool employs retrieval augmented generation techniques to enable intelligent, context-aware conversations tailored to the uploaded documents within specific projects.
 
 ## Features
 
@@ -12,7 +12,7 @@ Simple-AutoRAG is a web application designed to facilitate the creation of Retri
 
 ## Workflow
 
-The conceptual workflow of Simple-AutoRAG is depicted in the following image:
+The conceptual workflow of AutoRAG is depicted in the following image:
 
 ![Workflow](./img/workflow.png)
 
@@ -24,18 +24,18 @@ The conceptual relational schema diagram for the DB:
 
 ## Installation
 
-To install and run Simple-AutoRAG, follow these steps:
+To install and run AutoRAG, follow these steps:
 
 1. **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/yourusername/Simple-AutoRAG.git
+    git clone https://github.com/yourusername/AutoRAG.git
     ```
 
 2. **Navigate to the Project Directory:**
 
     ```bash
-    cd Simple-AutoRAG
+    cd AutoRAG
     ```
 
 3. **Start Services with Docker Compose:** Launch all necessary services for the application, including the frontend, database, and backend, using Docker Compose:
@@ -55,7 +55,7 @@ To install and run Simple-AutoRAG, follow these steps:
 
 ## License
 
-Simple-AutoRAG is available under the [MIT License](LICENSE).
+AutoRAG is available under the [MIT License](LICENSE).
 
 ## Contact
 
