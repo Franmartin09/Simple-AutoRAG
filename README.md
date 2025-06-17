@@ -16,6 +16,12 @@ The conceptual workflow of Simple-AutoRAG is depicted in the following image:
 
 ![Workflow](./img/workflow.png)
 
+## DB
+
+The conceptual relational schema diagram for the DB:
+
+![ER DB](./img/er_db.png)
+
 ## Installation
 
 To install and run Simple-AutoRAG, follow these steps:
